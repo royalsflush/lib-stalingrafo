@@ -7,16 +7,16 @@
 #include <string.h>
 using namespace std;
 
-#define MAXV 3010
-#define MAXE 100010
+const int MAXV = 3010;
+const int MAXE = 100010;
 
-template <typename T>
+typedef int weight_t;
 
 struct edge {
 	int a,b;
-	T w;
+	weight_t w;
 
-	edge(int pa=0, int pb=0, T pw=0) :
+	edge(int pa=0, int pb=0, weight_t pw=0) :
 		a(pa), b(pb), w(pw) {}
 	bool operator<(const edge& e) const {
 		return this->w<e.w;
@@ -25,7 +25,7 @@ struct edge {
 
 int rank[MAXV];
 int rep[MAXV];
-edge<double> ls[MAXE];
+edge ls[MAXE];
 int n,m;
 
 int find(int a) {
@@ -48,14 +48,14 @@ bool unio(int a, int b) {
 	return true;
 }
 
-double kruskal() {
+weight_t kruskal() {
 	memset(rank,0,sizeof(rank));
 	sort(ls,ls+m);	
 
 	for (int i=0; i<n; i++)
 		rep[i]=i;
 
-	double sum=0;
+	weight_t sum=0;
 	for (int i=0; i<m; i++)
 		if (unio(ls[i].a, ls[i].b)) 
 			sum+=ls[i].w;
