@@ -16,7 +16,6 @@ typedef long long flow_t;
 const int inf = 0x3f3f3f3f;
 const flow_t flowinf = 30000LL*100000000000LL;
 
-
 int lastEdge[MAXV];
 int currEdge[MAXV];
 int d[MAXV];
@@ -92,7 +91,7 @@ flow_t dinic() {
 
 	while (bfs()) {
 		flow_t flow=0;
-		while (flow=dfs(s,flowinf))
+		while ((flow=dfs(s,flowinf)))
 			maxFlow+=flow;
 	}
 
