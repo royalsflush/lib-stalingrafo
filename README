@@ -1,0 +1,40 @@
+Algoritmos na lib:
+
+Grafos:
+ - Kruskal (good!)
+ - Dinic (good!)
+ - Ford-fulkerson
+ - Tarjan SCC
+ - Tarjan pontes/pontos de articulacao
+ - Dijkstra com heap
+ - Dijkstra O(v^2)
+ - Bellman-Ford
+
+Estruturas de dados:
+ - Segtree
+ - Segtree com lazy propagation
+ - Segtree 2d
+ - BIT
+ - BIT 2D
+ - Suffix array
+
+Matematica:
+ - Crivo
+ - Gcd
+ - Bezout
+ - Teorema chines do resto
+
+Geometria:
+ - Minimum spanning circle
+ - Convex hull
+
+PDs:
+ - Knapsack
+ - Coin change
+ - Vertex cover numa arvore
+ - Maximum subarray sum
+ - LIS nlog n
+ - LCS
+
+Outros:
+ - Templates de busca binaria
