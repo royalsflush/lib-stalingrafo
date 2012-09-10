@@ -26,17 +26,17 @@ queue<int> q;
 struct edge {
 	flow_t c,f;
 	int src,dst,prev;
-
 	edge() {}
-	edge(int idx, int a, int b, flow_t cap) :
-		c(cap), f(0), src(a), dst(b) {
-		
-		this->prev=lastEdge[a];
-		lastEdge[a]=idx;
-	}
+	edge(flow_t c, int a, int b, int p):c(c), src(a), dst(b), prev(p), f(0) {}
 };
-
 edge ls[MAXE];
+
+void newEdge(int a, int b, flow_t cap, bool dir) {
+	ls[m++] = edge(cap, a, b, lastEdge[a]);
+	lastEdge[a] = m-1;
+	ls[m++] = edge(dir?0:cap, b, a, lastEdge[b]);
+	lastEdge[b] = m-1;
+}
 
 bool bfs() {
 	memset(d,0x3f,sizeof(d));
@@ -82,8 +82,9 @@ flow_t dfs(int u, flow_t flow) {
 	return 0LL;
 }
 
-void initGraph() {
-	memset(lastEdge,-1,sizeof(lastEdge));	
+void initGraph(int n) {
+	fill_n(lastEdge, n, -1);
+	m = 0;
 }
 
 flow_t dinic() {
