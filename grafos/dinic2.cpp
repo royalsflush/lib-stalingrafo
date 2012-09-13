@@ -52,12 +52,13 @@ struct graph {
 
 		while (!Q.empty()) {
 			int u = Q.front(); Q.pop();
-			for (int *i = adj[u]; i != adj[u+1]; ++i)
-				if (cap[*i]-flow[*i] > 0 && d[dest[*i]] == inf) {
-					int v = dest[*i];
+			for (int *i = adj[u]; i != adj[u+1]; ++i) {
+				int v = dest[*i];
+				if (cap[*i] > 0 && d[v] == inf) {
 					d[v] = d[u]+1;
 					Q.push(v);
 				}
+			}
 		}
 		return d[t] != inf;
 	}
@@ -65,12 +66,16 @@ struct graph {
 	flow_t dfs(int u, flow_t f) {
 		if (u == t) return f;
 		for (int*& i = currEdge[u]; i != adj[u+1]; ++i) {
-			if (d[dest[*i]] != d[u]+1 || cap[*i] == flow[*i]) continue;
+			int v = dest[*i];
+			if (d[v] != d[u]+1 || cap[*i] == 0) continue;
 
-			flow_t tmpF = dfs(dest[*i], min(f, cap[*i] - flow[*i]));
+			flow_t tmpF = dfs(v, min(f, cap[*i]));
 
 			if (tmpF) {
-				flow[*i] += tmpF;
+				cap[*i] -= tmpF;
+				cap[*i^1] += tmpF;
+				// If you don't need the actual flow, simply delete the following two lines.
+				flow[*i] += tmpF; 
 				flow[*i ^ 1] -= tmpF;
 				return tmpF;
 			}
